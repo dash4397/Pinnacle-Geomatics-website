@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinnacle Geomatics and Engineering Services Limited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1E2E;
+    --ink-soft:#1C3247;
+    --paper:#EFEAD8;
+    --paper-line:#D9D2B8;
+    --brass:#B8862B;
+    --brass-light:#D9A94A;
+    --rust:#A5402E;
+    --contour:#4C6B4F;
+    --white:#FBFAF5;
+
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Source Serif 4', serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+
+  /* subtle graph-paper texture on the page background */
+  .grid-bg{
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 34px 34px;
+    background-position: -1px -1px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(239,234,216,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand svg{width:34px; height:34px; flex:none;}
+  .brand-text{font-family:var(--display); font-weight:700; letter-spacing:0.01em; font-size:1.02rem;}
+  .brand-text small{
+    display:block; font-family:var(--mono); font-weight:400; font-size:0.62rem;
+    letter-spacing:0.14em; color:var(--brass); text-transform:uppercase; margin-top:2px;
+  }
+  .nav-links{display:flex; gap:28px; list-style:none; font-family:var(--mono); font-size:0.8rem; letter-spacing:0.04em;}
+  .nav-links a{text-decoration:none; position:relative; padding-bottom:3px;}
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--brass);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:var(--mono); font-size:0.76rem; letter-spacing:0.03em;
+    background:var(--ink); color:var(--white);
+    padding:10px 18px; text-decoration:none; border:1px solid var(--ink);
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .nav-cta:hover{background:transparent; color:var(--ink);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:64px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:center;}
+  .eyebrow{
+    font-family:var(--mono); font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--brass); display:flex; align-items:center; gap:10px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--brass);}
+  h1{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(2.1rem, 4vw, 3.35rem);
+    line-height:1.06; letter-spacing:-0.01em; color:var(--ink);
+    margin-bottom:22px;
+  }
+  h1 em{font-style:normal; color:var(--brass);}
+  .hero p.lede{font-size:1.08rem; color:var(--ink-soft); max-width:46ch; margin-bottom:30px;}
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.03em;
+    padding:13px 22px; text-decoration:none; display:inline-block;
+    border:1px solid var(--ink); transition:all 0.2s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--white);}
+  .btn-primary:hover{background:var(--brass); border-color:var(--brass);}
+  .btn-ghost{background:transparent; color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:var(--white);}
+
+  /* survey plan svg */
+  .plan-box{position:relative;}
+  .plan-frame{
+    border:1px solid var(--ink); background:var(--white); padding:18px;
+    position:relative;
+  }
+  .plan-frame::before{
+    content:"SURVEY PLAN — REF. PGE/2026/OFC"; position:absolute; top:-11px; left:16px;
+    background:var(--paper); padding:0 8px; font-family:var(--mono); font-size:0.62rem;
+    letter-spacing:0.08em; color:var(--ink-soft);
+  }
+  .beacon-label{font-family:var(--mono); font-size:9.5px; fill:var(--ink-soft);}
+  .bearing-label{font-family:var(--mono); font-size:8.5px; fill:var(--brass); letter-spacing:0.02em;}
+  .traverse-line{
+    fill:none; stroke:var(--ink); stroke-width:1.4; pathLength:1;
+    stroke-dasharray:1; stroke-dashoffset:1;
+    animation:draw 1.8s ease forwards;
+  }
+  .traverse-line.d2{animation-delay:0.25s;}
+  .traverse-line.d3{animation-delay:0.5s;}
+  .traverse-line.d4{animation-delay:0.75s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .beacon{fill:var(--white); stroke:var(--rust); stroke-width:1.6;}
+  .beacon-dot{fill:var(--rust);}
+  .compass{opacity:0.85;}
+
+  @media (prefers-reduced-motion: reduce){
+    .traverse-line{animation:none; stroke-dashoffset:0;}
+  }
+
+  /* ---------- SERVICES ---------- */
+  section{padding:78px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  h2{font-family:var(--display); font-weight:600; font-size:clamp(1.6rem, 3vw, 2.2rem); letter-spacing:-0.01em;}
+  h2 + p{color:var(--ink-soft); margin-top:12px; font-size:1.02rem;}
+
+  .services{
+    background:var(--ink); color:var(--paper);
+  }
+  .services .eyebrow{color:var(--brass-light);}
+  .services h2{color:var(--white);}
+  .services h2 + p{color:#C6CDD6;}
+
+  .beacon-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:1px;
+    background:rgba(251,250,245,0.14);
+    border:1px solid rgba(251,250,245,0.14);
+  }
+  .beacon-card{background:var(--ink); padding:34px 30px;}
+  .beacon-tag{
+    font-family:var(--mono); font-size:0.72rem; color:var(--brass-light);
+    letter-spacing:0.1em; margin-bottom:16px; display:block;
+  }
+  .beacon-card h3{
+    font-family:var(--display); font-size:1.24rem; font-weight:600; margin-bottom:10px; color:var(--white);
+  }
+  .beacon-card p{color:#B9C2CB; font-size:0.96rem;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;}
+  .md-card{
+    border:1px solid var(--ink); background:var(--white); padding:28px;
+  }
+  .monogram{
+    width:62px; height:62px; border:1px solid var(--brass); color:var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:700; font-size:1.3rem; margin-bottom:18px;
+  }
+  .md-card .name{font-family:var(--display); font-weight:600; font-size:1.15rem;}
+  .md-card .title{font-family:var(--mono); font-size:0.76rem; color:var(--brass); letter-spacing:0.06em; margin:6px 0 16px;}
+  .md-card .bio{font-size:0.95rem; color:var(--ink-soft);}
+  .about-copy p{margin-bottom:18px; color:var(--ink-soft); font-size:1.03rem;}
+  .about-copy p:first-child{color:var(--ink); font-size:1.1rem;}
+  .creds{
+    display:flex; gap:0; margin-top:28px; border-top:1px solid var(--paper-line);
+  }
+  .creds div{flex:1; padding:18px 18px 0 0;}
+  .creds .num{font-family:var(--mono); font-size:0.72rem; color:var(--brass); letter-spacing:0.08em;}
+  .creds .lbl{font-size:0.9rem; color:var(--ink-soft); margin-top:4px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--white); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);}
+  .contact-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:0; border:1px solid var(--ink);}
+  .contact-info{padding:42px; border-right:1px solid var(--ink);}
+  .contact-info h2{margin-bottom:22px;}
+  .info-row{margin-bottom:22px;}
+  .info-row .lbl{font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; color:var(--brass); text-transform:uppercase; margin-bottom:6px;}
+  .info-row .val{font-size:1rem; color:var(--ink);}
+  .info-row .val.muted{color:var(--ink-soft); font-style:italic; font-size:0.9rem;}
+  .map-embed{min-height:380px; position:relative;}
+  .map-embed iframe{width:100%; height:100%; min-height:380px; border:0; display:block; filter:grayscale(0.15) contrast(1.02);}
+
+  @media (max-width:860px){
+    .hero-grid, .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .contact-info{border-right:none; border-bottom:1px solid var(--ink);}
+    .beacon-grid{grid-template-columns:1fr;}
+    .creds{flex-direction:column;}
+    .creds div{padding:14px 0 0 0;}
+  }
+
+  footer{
+    background:var(--ink); color:#8C97A2; padding:36px 0; font-family:var(--mono); font-size:0.78rem;
+  }
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .foot-row a{text-decoration:none; color:#C6CDD6;}
+</style>
+</head>
+<body class="grid-bg">
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="#0F1E2E" stroke-width="1.2"/>
+          <path d="M20 8 L20 32 M8 20 L32 20" stroke="#B8862B" stroke-width="1.2"/>
+          <circle cx="20" cy="20" r="4.5" fill="#A5402E"/>
+        </svg>
+        <div class="brand-text">Pinnacle Geomatics<small>&amp; Engineering Services Ltd</small></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Request a Survey</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Ibadan · Oyo State · Nigeria</div>
+      <h1>Precision on the ground, <em>clarity</em> on paper.</h1>
+      <p class="lede">Pinnacle Geomatics and Engineering Services Limited delivers land surveying, real estate advisory, project management and GIS solutions across Ibadan and the South-West — measured accurately, documented properly, delivered on schedule.</p>
+      <div class="btn-row">
+        <a href="#contact" class="btn btn-primary">Request a Survey</a>
+        <a href="#services" class="btn btn-ghost">View Services</a>
+      </div>
+    </div>
+
+    <div class="plan-box">
+      <div class="plan-frame">
+        <svg viewBox="0 0 420 340" width="100%">
+          <!-- traverse loop -->
+          <polyline class="traverse-line" points="70,270 95,70" />
+          <polyline class="traverse-line d2" points="95,70 330,55" />
+          <polyline class="traverse-line d3" points="330,55 360,250" />
+          <polyline class="traverse-line d4" points="360,250 70,270" />
+
+          <!-- bearing labels -->
+          <text x="58" y="170" class="bearing-label">N 03°10' E</text>
+          <text x="180" y="52" class="bearing-label">N 88°40' E</text>
+          <text x="345" y="150" class="bearing-label">S 05°55' E</text>
+          <text x="180" y="272" class="bearing-label">S 87°15' W</text>
+
+          <!-- beacons -->
+          <g>
+            <circle class="beacon" cx="70" cy="270" r="7"/>
+            <circle class="beacon-dot" cx="70" cy="270" r="2"/>
+            <text x="82" y="274" class="beacon-label">BN-01 · Land Surveying</text>
+          </g>
+          <g>
+            <circle class="beacon" cx="95" cy="70" r="7"/>
+            <circle class="beacon-dot" cx="95" cy="70" r="2"/>
+            <text x="107" y="66" class="beacon-label">BN-04 · GIS</text>
+          </g>
+          <g>
+            <circle class="beacon" cx="330" cy="55" r="7"/>
+            <circle class="beacon-dot" cx="330" cy="55" r="2"/>
+            <text x="256" y="42" class="beacon-label">BN-02 · Real Estate</text>
+          </g>
+          <g>
+            <circle class="beacon" cx="360" cy="250" r="7"/>
+            <circle class="beacon-dot" cx="360" cy="250" r="2"/>
+            <text x="272" y="266" class="beacon-label">BN-03 · Project Mgmt</text>
+          </g>
+
+          <!-- compass rose -->
+          <g class="compass" transform="translate(360,300)">
+            <circle r="16" fill="none" stroke="#0F1E2E" stroke-width="1"/>
+            <path d="M0,-16 L0,16 M-16,0 L16,0" stroke="#0F1E2E" stroke-width="0.8"/>
+            <path d="M0,-16 L4,-4 L0,-8 L-4,-4 Z" fill="#A5402E"/>
+            <text x="-3" y="-20" class="beacon-label">N</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">What We Do</div>
+      <h2>Four disciplines, one site file.</h2>
+      <p>Every beacon on the plan above marks a service line — coordinated from the same field data and the same team, from first pillar to final handover.</p>
+    </div>
+
+    <div class="beacon-grid">
+      <div class="beacon-card">
+        <span class="beacon-tag">BN-01</span>
+        <h3>Land Surveying</h3>
+        <p>Cadastral, boundary, topographic and engineering surveys carried out to SURCON standards — beacon planting, coordinate computation and registered survey plans for individuals, estates and institutions.</p>
+      </div>
+      <div class="beacon-card">
+        <span class="beacon-tag">BN-02</span>
+        <h3>Real Estate</h3>
+        <p>Site verification, land title advisory and due diligence for buyers, developers and financial institutions looking to confirm what they're actually acquiring before they commit.</p>
+      </div>
+      <div class="beacon-card">
+        <span class="beacon-tag">BN-03</span>
+        <h3>Project Management</h3>
+        <p>Full-cycle oversight of construction and development projects — feasibility, setting-out, site supervision and handover — keeping scope, cost and schedule in one hand.</p>
+      </div>
+      <div class="beacon-card">
+        <span class="beacon-tag">BN-04</span>
+        <h3>GIS</h3>
+        <p>Digital mapping, spatial data capture and geodatabase development to support planning, infrastructure and land administration decisions with data, not guesswork.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="md-card">
+      <div class="monogram">EE</div>
+      <div class="name">Surv. Eniola Emmanuel Eniade</div>
+      <div class="title">Managing Director</div>
+      <p class="bio">Leads Pinnacle Geomatics' field and technical operations, overseeing every survey from initial reconnaissance through to registered plan — with an emphasis on accuracy clients can rely on when it matters most: at the point of sale, the point of build, or the point of dispute.</p>
+    </div>
+
+    <div class="about-copy">
+      <div class="eyebrow">About the Firm</div>
+      <p>Pinnacle Geomatics and Engineering Services Limited is a full-service geomatics and engineering consultancy based in Ibadan, Oyo State, providing accurate, standards-compliant survey and spatial data services across South-West Nigeria.</p>
+      <p>We work with individual landowners, developers, estate agencies and institutions who need to know — with certainty — where a boundary sits, what a title actually covers, and how a project should be sequenced from ground-breaking to close-out. Our approach ties every service back to verified field data, so a survey plan, a title opinion and a project schedule are never working from different numbers.</p>
+      <div class="creds">
+        <div>
+          <div class="num">01</div>
+          <div class="lbl">Registered land surveys &amp; beacon planting</div>
+        </div>
+        <div>
+          <div class="num">02</div>
+          <div class="lbl">Title verification &amp; property advisory</div>
+        </div>
+        <div>
+          <div class="num">03</div>
+          <div class="lbl">GIS &amp; digital spatial data delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Find the office, or start a request.</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="info-row">
+          <div class="lbl">Office Address</div>
+          <div class="val">Shop C1/5, Trans Wonderland Plc,<br>Behind Amala Skye, Bodija, Ibadan, Oyo State.</div>
+        </div>
+        <div class="info-row">
+          <div class="lbl">Phone</div>
+          <div class="val muted">Add your office line here</div>
+        </div>
+        <div class="info-row">
+          <div class="lbl">Email</div>
+          <div class="val muted">Add your office email here</div>
+        </div>
+        <div class="info-row">
+          <div class="lbl">Managing Director</div>
+          <div class="val">Surv. Eniola Emmanuel Eniade</div>
+        </div>
+        <a href="#" class="btn btn-primary" style="margin-top:8px;">Request a Survey</a>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps?q=Shop+C1%2F5+Trans+Wonderland+Plc+Behind+Amala+Skye+Bodija+Ibadan&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <span>© 2026 Pinnacle Geomatics and Engineering Services Limited.</span>
+    <span><a href="#services">Services</a> &nbsp;·&nbsp; <a href="#about">About</a> &nbsp;·&nbsp; <a href="#contact">Contact</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
